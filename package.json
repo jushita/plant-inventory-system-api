@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/jushita/plant-inventory-system/issues"
   },
-  "homepage": "https://github.com/jushita/plant-inventory-system#readme"
+  "homepage": "https://github.com/jushita/plant-inventory-system#readme",
+  "dependencies": {
+    "aws-sdk": "^2.599.0",
+    "aws-serverless-express": "^3.3.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
+  }
 }
