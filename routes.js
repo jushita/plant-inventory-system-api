@@ -56,7 +56,7 @@ router.post('/plants', (req, res) => {
     const name = req.body.name;
     const description = req.body.description;
     const resource = req.body.resource;
-    const status = req.body.resource;
+    const status = req.body.status;
     const id = uuid.v4();
 
     const params = {
@@ -87,7 +87,6 @@ router.post('/plants', (req, res) => {
 
 router.delete('/plants/:id', (req, res) => {
     const id = req.params.id;
-
     const params = {
         TableName: PLANTS_TABLE,
         Key: {
@@ -124,7 +123,7 @@ router.put('/plants', (req, res) => {
             ':name': name,
             ':description': description,
             ':resource': resource,
-            'status': status
+            ':status': status
         },
         ReturnValues: 'ALL_NEW'
     }
