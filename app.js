@@ -7,7 +7,7 @@ const awsServerlessExpressMiddleware = require('aws-serverless-express/middlewar
 const routes = require('./routes');
 
 app.use(cors());
-app.use(bodyParses.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(awsServerlessExpressMiddleware.eventContext());
 
