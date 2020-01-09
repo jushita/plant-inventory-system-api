@@ -85,4 +85,58 @@ router.post('/plants', (req, res) => {
     });
 });
 
+router.delete('/plants/:id', (req, res) => {
+    const id = req.params.id;
+
+    const params = {
+        TableName: PLANTS_TABLE,
+        Key: {
+            id
+        }
+    };
+
+    dynamoDb.delete(params, (error) => {
+        if (error) {
+            res.status(400).json({
+                error: 'Could not delete plant'
+            });
+        }
+        res.json({
+            success: true
+        });
+    });
+});
+
+router.put('/plants', (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const description = req.body.description;
+    const resource = req.body.resource;
+    const status = req.body.status;
+
+    const params = {
+        TableName: PLANTS_TABLE,
+        Key: {
+            id
+        },
+        UpdateExpression: 'set #name = :name, #description = :description, #resource = :resource, #status = :status',
+        ExpressionAttributeValues: {
+            ':name': name,
+            ':description': description,
+            ':resource': resource,
+            'status': status
+        },
+        ReturnValues: 'ALL_NEW'
+    }
+
+    dynamoDb.update(params, (error, result) => {
+        if (error) {
+            res.status(400).json({
+                error: 'Could not update plant'
+            });
+        }
+        res.json(result.Attributes);
+    });
+});
+
 module.exports = router;
