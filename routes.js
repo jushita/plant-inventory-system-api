@@ -52,4 +52,37 @@ router.get('/plants/:id', (req, res) => {
     });
 });
 
+router.post('/plants', (req, res) => {
+    const name = req.body.name;
+    const description = req.body.description;
+    const resource = req.body.resource;
+    const status = req.body.resource;
+    const id = uuid.v4();
+
+    const params = {
+        TableName: PLANTS_TABLE,
+        Item: {
+            id,
+            name,
+            description,
+            resource,
+            status
+        },
+    };
+    dynamoDb.put(params, (error) => {
+        if(error) {
+            res.status(400).json({
+                error: 'Could not add plant'
+            });
+        }
+        res.json({
+            id,
+            name,
+            description,
+            resource,
+            status
+        });
+    });
+});
+
 module.exports = router;
