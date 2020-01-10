@@ -4,12 +4,12 @@ services:
     container_name: dynamodb
     image: 'amazon/dynamodb-local:latest'
     entrypoint: java
-    command: '-jar DynamoDBLocal.jar -sharedDB'
+    command: '-jar DynamoDBLocal.jar -sharedDb'
     restart: always
     volumes:
       - 'dynamodb-data:/data'
     ports:
-      - '8080:8080'
-  volumes:
-    dynamodb-data:
-      external: true
+      - '8080:8000'
+volumes:
+  dynamodb-data:
+    external: true

@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run clean && npm run build && aws2 lambda update-function-code --function-name plants --zip-file fileb://build.zip --publish",
     "clean": "rm build.zip",
-    "build": "zip -r build.zip node_modules index.js app.js routes.js"},
-    "dynamodb-local-run": "docker-compose up",
+    "build": "zip -r build.zip node_modules index.js app.js routes.js",
+    "dynamodb-local-run": "docker-compose up"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jushita/plant-inventory-system.git"
