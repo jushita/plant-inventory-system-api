@@ -8,7 +8,9 @@
     "deploy": "npm run clean && npm run build && aws2 lambda update-function-code --function-name plants --zip-file fileb://build.zip --publish",
     "clean": "rm build.zip",
     "build": "zip -r build.zip node_modules index.js app.js routes.js",
-    "dynamodb-local-run": "docker-compose up"
+    "dynamodb-local-run": "docker-compose up",
+    "create-database": "aws2 dynamodb create-table --cli-input-json file://plant-table-model.json --endpoint-url http://localhost:8080",
+    "start": "TABLE='plants' node app-local"
   },
   "repository": {
     "type": "git",

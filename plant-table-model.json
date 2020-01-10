@@ -4,40 +4,17 @@
         {
             "AttributeName": "id",
             "KeyType": "HASH"
-        },
-        {
-            "AttributeName": "description",
-            "KeyType": "RANGE"
-        },
-        {
-            "AttributeName": "resouce",
-            "KeyType": "RANGE"
-        },
-        {
-            "AttributeName": "status",
-            "KeyType":"RANGE"
         }
     ],
+
     "AttributeDefinitions": [
         {
             "AttributeName": "id",
             "AttributeType": "S"
-        },
-        {
-            "AttributeName": "description",
-            "AttributeType": "S"
-        },
-        {
-            "AttributeName": "resouce",
-            "AttributeType": "S"
-        },
-        {
-            "AttributeName": "status",
-            "AttributeType": "S"
         }
     ],
     "ProvisionedThroughput": {
-        "ReadCapacityUnits": 4,
-        "WriteCapacityUnits": 4
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
     }
 }
