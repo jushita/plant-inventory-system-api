@@ -2,15 +2,16 @@
   "name": "plant-inventory-system-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run clean && npm run build && aws2 lambda update-function-code --function-name plants --zip-file fileb://build.zip --publish",
     "clean": "rm build.zip",
-    "build": "zip -r build.zip node_modules index.js app.js routes.js",
+    "build": "npm run tsc && zip -r build.zip node_modules && cd ./dist && zip -r ../build.zip ./**",
     "dynamodb-local-run": "docker-compose up",
     "create-database": "aws2 dynamodb create-table --cli-input-json file://plant-table-model.json --endpoint-url http://localhost:8080",
-    "start": "TABLE='plants' node app-local"
+    "start": "TABLE='plants' node dist/app-local",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,13 @@
     "aws-serverless-express": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-cls-hooked": "^0.3.8",
+    "log4js": "^6.1.0",
+    "morgan": "^1.9.1",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "typescript": "^3.7.4"
   }
 }
