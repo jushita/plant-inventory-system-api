@@ -1,6 +1,6 @@
 import { PlantService } from "../services/plant.service";
 import { Plant } from "../models/plant";
-import { Response, Request, Router} from 'express';
+import { Response, Request, Router } from 'express';
 
 export class PlantRoutes {
     public static routes(): Router {
@@ -18,12 +18,12 @@ export class PlantRoutes {
 
     }
 
-    public getRouter(): Router{
+    public getRouter(): Router {
         return this.router;
     }
 
     public bootstrap(): void {
-        this.router.get('/plants', async(req: Request, res: Response) => {
+        this.router.get('/plants', async (req: Request, res: Response) => {
             let listOfPlants: Plant[];
             try {
                 listOfPlants = await this.plantService.getAll();
@@ -33,5 +33,17 @@ export class PlantRoutes {
             }
             return res.status(200).json(listOfPlants);
         });
+
+        this.router.get('/plants/:id', async (req: Request, res: Response) => {
+            let id = req.params.id
+            let plant: Plant;
+            try {
+                plant = await this.plantService.getbyId(id)
+            } catch (e) {
+                return res.status(500).json(e);
+            }
+
+            return res.status(200).json(plant);
+        })
     }
 }    
