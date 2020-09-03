@@ -58,7 +58,7 @@ export class PlantRoutes {
             } catch (e) {
                 return res.status(500).json(e);
             }
-            return res.status(200);
+            return res.status(200).json(newPlant);
 
         })
 
