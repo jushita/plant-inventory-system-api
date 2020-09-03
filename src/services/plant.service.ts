@@ -24,18 +24,17 @@ export class PlantService {
     }
 
     public async getAll(): Promise<Plant[]> {
+        let result;
         const params = {
             TableName: this.PLANTS_TABLE
         };
-        return new Promise((resolve, reject) => {
-            this.dynamoDb.scan(params, (error, result) => {
-                if (error) {
-                    return reject(error);
-                }
-                // const plants = result.Items.map(plant => plant as Plant);
-                resolve(result.Items as Plant[]);
-            })
-        })
+        try {
+            result = await this.dynamoDb.scan(params).promise();
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+        return result.Items as Plant[]
 
     }
 
@@ -60,8 +59,18 @@ export class PlantService {
 
     }
 
-    public async create(): Promise<Plant> {
-        return
+    public async create(plant: Plant): Promise<Plant> {
+        const params = {
+            TableName: this.PLANTS_TABLE,
+            Item: plant
+        }
+        try {
+            await this.dynamoDb.put(params).promise();
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+        return plant;
     }
 
     public update(id: string): Promise<Plant> {

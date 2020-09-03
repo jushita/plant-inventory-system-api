@@ -1,6 +1,7 @@
 import { PlantService } from "../services/plant.service";
 import { Plant } from "../models/plant";
 import { Response, Request, Router } from 'express';
+const uuid = require('uuid');
 
 export class PlantRoutes {
     public static routes(): Router {
@@ -33,7 +34,6 @@ export class PlantRoutes {
             }
             return res.status(200).json(listOfPlants);
         });
-
         this.router.get('/plants/:id', async (req: Request, res: Response) => {
             let id = req.params.id
             let plant: Plant;
@@ -44,6 +44,23 @@ export class PlantRoutes {
             }
 
             return res.status(200).json(plant);
+        });
+
+        this.router.post('/plants', async (req: Request, res: Response) => {
+            const name = req.body.name;
+            const description = req.body.description;
+            const resource = req.body.resource;
+            const status = req.body.status;
+            const id = uuid.v4();
+            let newPlant = new Plant(id, name, description, resource, status);
+            try {
+                await this.plantService.create(newPlant);
+            } catch (e) {
+                return res.status(500).json(e);
+            }
+            return res.status(200);
+
         })
+
     }
 }    
