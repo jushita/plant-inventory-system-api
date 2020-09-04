@@ -1,15 +1,15 @@
 export class Plant {
     public id: string;
-    public name: string;
+    public pname: string;
     public description: string;
     public resource: string;
-    public status: string;
-    constructor(id: string, name: string, description: string, resource: string, status: string) {
+    public pstatus: string;
+    constructor(id: string, pname: string, description: string, resource: string, pstatus: string) {
         this.id = id;
-        this.name = name;
+        this.pname = pname;
         this.description = description;
         this.resource = resource;
-        this.status = status;
+        this.pstatus = pstatus;
 
     }
 }

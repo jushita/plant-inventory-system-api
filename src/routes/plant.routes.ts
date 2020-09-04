@@ -34,6 +34,7 @@ export class PlantRoutes {
             }
             return res.status(200).json(listOfPlants);
         });
+
         this.router.get('/plants/:id', async (req: Request, res: Response) => {
             let id = req.params.id
             let plant: Plant;
@@ -59,6 +60,23 @@ export class PlantRoutes {
                 return res.status(500).json(e);
             }
             return res.status(200).json(newPlant);
+
+        });
+
+        this.router.put('/plants/:id', async (req: Request, res: Response) => {
+            let id = req.params.id;
+            const name = req.body.name;
+            const description = req.body.description;
+            const resource = req.body.resource;
+            const status = req.body.status;
+            let updatedPlant = new Plant(id, name, description, resource, status);
+            try {
+                await this.plantService.update(updatedPlant);
+            } catch (e) {
+                return res.status(500).json(e);
+            }
+
+            return res.status(200).json(updatedPlant);
 
         })
 

@@ -73,8 +73,29 @@ export class PlantService {
         return plant;
     }
 
-    public update(id: string): Promise<Plant> {
-        return
+    public async update(plant: Plant): Promise<Plant> {
+        const params = {
+            TableName: this.PLANTS_TABLE,
+            Key: {
+                "id": plant.id
+            },
+            UpdateExpression: "set info.pname = :n, info.description=:d, info.aresource=:r, info.pstatus=:s",
+            ExpressionAttributeValues: {
+                ":n": plant.pname,
+                ":d": plant.description,
+                ":r": plant.resource,
+                ":s": plant.pstatus
+            },
+        };
+
+        try {
+            await this.dynamoDb.update(params).promise();
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+        return plant;
+
     }
 
     public delete(id: string): Promise<Plant> {
