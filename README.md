@@ -4,8 +4,8 @@ This application contains api that can be consumed. The application contains cap
 
 ## Tech Stack:
 
-Nodejs v10.18.0
-Express
+Nodejs v10.18.0 \
+Express \
 Dynamodb
 
 ## Get Started
