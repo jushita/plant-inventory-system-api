@@ -1,6 +1,8 @@
 import { Plant } from "../models/plant";
 import * as AWS from 'aws-sdk';
 import { DynamoDB } from "aws-sdk";
+import { Types } from "aws-sdk/clients/acm";
+import { json } from "express";
 
 
 export class PlantService {
@@ -79,12 +81,12 @@ export class PlantService {
             Key: {
                 "id": plant.id
             },
-            UpdateExpression: "set info.pname = :n, info.description=:d, info.aresource=:r, info.pstatus=:s",
+            UpdateExpression: "set pname = :n, description=:d, presource=:r, pstatus=:s",
             ExpressionAttributeValues: {
-                ":n": plant.pname,
-                ":d": plant.description,
-                ":r": plant.resource,
-                ":s": plant.pstatus
+                ":n": plant.plantName,
+                ":d": plant.plantDescription,
+                ":r": plant.plantResource,
+                ":s": plant.plantStatus
             },
         };
 
@@ -102,3 +104,16 @@ export class PlantService {
         return
     }
 }
+
+
+// primitive Types
+// structural Types 4 Types
+// what is encapsulation
+// how to do it in js
+// getter and setter
+// event loop in Node
+// == ===
+// component, diff module service component, pipe, directives, types of directives, lifescycle of ,
+// glossary stuff
+// type data input decorator
+// injectable,  
