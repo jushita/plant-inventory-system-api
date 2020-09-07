@@ -12,3 +12,8 @@ Dynamodb
 ## Get Started
 
 Clone the repository and run `npm run build` and `npm start` 
+Or `npm run watch` for development purposes
+
+## Running in Docker Container
+
+The application can be dockarized and deployed
