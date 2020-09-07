@@ -1,7 +1,11 @@
 import { PlantService } from "../services/plant.service";
 import { Plant } from "../models/plant";
 import { Response, Request, Router } from 'express';
+import { Logger } from "../services/logger";
+
 const uuid = require('uuid');
+
+const LOGGER = Logger.getLogger();
 
 export class PlantRoutes {
     public static routes(): Router {
@@ -78,6 +82,17 @@ export class PlantRoutes {
 
             return res.status(200).json(updatedPlant);
 
+        });
+
+        this.router.delete('/plants/:id', async (req: Request, res: Response) => {
+            let id = req.params.id;
+            try {
+                await this.plantService.delete(id);
+            } catch (e) {
+                LOGGER.error(e);
+                return res.status(500).json(e);
+            }
+            return res.status(200).json('Plant deleted successfully')
         })
 
     }

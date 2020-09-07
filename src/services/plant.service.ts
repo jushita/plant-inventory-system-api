@@ -1,9 +1,9 @@
 import { Plant } from "../models/plant";
 import * as AWS from 'aws-sdk';
 import { DynamoDB } from "aws-sdk";
-import { Types } from "aws-sdk/clients/acm";
-import { json } from "express";
+import { Logger } from "./logger";
 
+const LOGGER = Logger.getLogger();
 
 export class PlantService {
     private static _instance: PlantService;
@@ -33,7 +33,7 @@ export class PlantService {
         try {
             result = await this.dynamoDb.scan(params).promise();
         } catch (e) {
-            console.log(e);
+            LOGGER.error(e);
             throw e;
         }
         return result.Items as Plant[]
@@ -53,7 +53,7 @@ export class PlantService {
             result = await this.dynamoDb.query(params).promise();
 
         } catch (e) {
-            console.log(e);
+            LOGGER.error(e);
             throw e;
         }
         if (result.Count === 0) return null;
@@ -69,7 +69,7 @@ export class PlantService {
         try {
             await this.dynamoDb.put(params).promise();
         } catch (e) {
-            console.log(e);
+            LOGGER.error(e);
             throw e;
         }
         return plant;
@@ -93,15 +93,28 @@ export class PlantService {
         try {
             await this.dynamoDb.update(params).promise();
         } catch (e) {
-            console.log(e);
+            LOGGER.error(e);
             throw e;
         }
         return plant;
 
     }
 
-    public delete(id: string): Promise<Plant> {
-        return
+    public async delete(id: string) {
+        const params = {
+            TableName: this.PLANTS_TABLE,
+            Key: {
+                "id": id,
+            },
+        };
+
+        try {
+            await this.dynamoDb.delete(params).promise();
+        } catch (e) {
+            LOGGER.error(e);
+            throw (e);
+        }
+
     }
 }
 
