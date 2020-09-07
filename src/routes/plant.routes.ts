@@ -52,28 +52,27 @@ export class PlantRoutes {
         });
 
         this.router.post('/plants', async (req: Request, res: Response) => {
-            const name = req.body.name;
-            const description = req.body.description;
-            const resource = req.body.resource;
-            const status = req.body.status;
+            const plantName = req.body.plantName;
+            const plantDescription = req.body.plantDescription;
+            const plantResource = req.body.plantResource;
+            const plantStatus = req.body.plantStatus;
             const id = uuid.v4();
-            let newPlant = new Plant(id, name, description, resource, status);
+            let newPlant = new Plant(id, plantName, plantDescription, plantResource, plantStatus);
             try {
                 await this.plantService.create(newPlant);
             } catch (e) {
                 return res.status(500).json(e);
             }
             return res.status(200).json(newPlant);
-
         });
 
         this.router.put('/plants/:id', async (req: Request, res: Response) => {
             let id = req.params.id;
-            const name = req.body.name;
-            const description = req.body.description;
-            const resource = req.body.resource;
-            const status = req.body.status;
-            let updatedPlant = new Plant(id, name, description, resource, status);
+            const plantName = req.body.plantName;
+            const plantDescription = req.body.plantDescription;
+            const plantResource = req.body.plantResource;
+            const plantStatus = req.body.plantStatus;
+            let updatedPlant = new Plant(id, plantName, plantDescription, plantResource, plantStatus);
             try {
                 await this.plantService.update(updatedPlant);
             } catch (e) {
