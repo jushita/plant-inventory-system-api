@@ -6,6 +6,7 @@ This application contains api that can be consumed. The application contains cap
 
 Nodejs v10.18.0 \
 Express \
+Docker \
 Dynamodb
 
 ## Get Started
