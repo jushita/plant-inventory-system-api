@@ -20,7 +20,7 @@ export class PlantService {
         this.dynamoDb = this.IS_OFFLINE === true ?
             new AWS.DynamoDB.DocumentClient({
                 region: 'us-east-2',
-                endpoint: 'http://127.0.0.1:8080',
+                endpoint: 'http://host.docker.internal:8080',
             }) :
             new AWS.DynamoDB.DocumentClient();
     }

@@ -23,3 +23,8 @@ LOGGER.info(`Initializing server`);
 app.listen(port, () => {
     LOGGER.info(`listening on http://localhost:${port}`);
 });
+
+
+
+// run docker application using docker: 
+// docker run -d -p "3000:3000" --env-file .env jushita-rahman/plant-inventory-system-api
