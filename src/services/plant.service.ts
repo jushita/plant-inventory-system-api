@@ -117,16 +117,3 @@ export class PlantService {
 
     }
 }
-
-
-// primitive Types
-// structural Types 4 Types
-// what is encapsulation
-// how to do it in js
-// getter and setter
-// event loop in Node
-// == ===
-// component, diff module service component, pipe, directives, types of directives, lifescycle of ,
-// glossary stuff
-// type data input decorator
-// injectable,  
