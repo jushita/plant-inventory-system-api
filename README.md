@@ -6,8 +6,14 @@ This application contains api that can be consumed. The application contains cap
 
 Nodejs v10.18.0 \
 Express \
+Docker \
 Dynamodb
 
 ## Get Started
 
 Clone the repository and run `npm run build` and `npm start` 
+Or `npm run watch` for development purposes
+
+## Running in Docker Container
+
+The application can be dockarized and deployed
