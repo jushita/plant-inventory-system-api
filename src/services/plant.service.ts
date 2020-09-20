@@ -81,7 +81,7 @@ export class PlantService {
             Key: {
                 "id": plant.id
             },
-            UpdateExpression: "set pname = :n, description=:d, presource=:r, pstatus=:s",
+            UpdateExpression: "set plantName = :n, plantDescription=:d, plantResource=:r, plantStatus=:s",
             ExpressionAttributeValues: {
                 ":n": plant.plantName,
                 ":d": plant.plantDescription,

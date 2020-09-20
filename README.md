@@ -17,3 +17,6 @@ Or `npm run watch` for development purposes
 ## Running in Docker Container
 
 The application can be dockarized and deployed
+
+Build Docker container: `docker build -t jushita-rahman/plant-inventory-system-api . `
+Run Docker Container `docker run -p "3000:3000" --env-file .env -d jushita-rahman/plant-inventory-system-api`
