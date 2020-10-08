@@ -3,21 +3,28 @@ import { Plant } from "../models/plant";
 import { Response, Request, Router } from 'express';
 import { Logger } from "../services/logger";
 import multer = require('multer');
+var aws = require('aws-sdk')
+var multerS3 = require('multer-s3')
+var s3 = new aws.S3({ /* ... */ })
 
-const upload = multer({ dest: 'uploads/' });
+let storage = multerS3({
+    s3: s3,
+    bucket: 'plants-jushita',
+    metadata: function (req, file, cb) {
+        cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
 
+const upload = multer({
+    storage: storage
+});
 const uuid = require('uuid');
-var fs = require("fs");
 
-// const UPLOAD_PATH = 'uploads';
-// const DB_NAME = 'db.json';
-// const COLLECTION_NAME = 'images';
 
 const LOGGER = Logger.getLogger();
-
-// const upload = multer({ dest: `${UPLOAD_PATH}/` }); // multer configuration
-// const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
-
 
 export class PlantRoutes {
     public static routes(): Router {
@@ -81,8 +88,6 @@ export class PlantRoutes {
         });
 
         this.router.post('/plants/upload', upload.single('plantResource'), async (req: Request, res: Response) => {
-            console.log(JSON.stringify(req.body));
-            console.log(req.file);
             try {
                 if (!req.file) {
                     res.send({
@@ -90,9 +95,7 @@ export class PlantRoutes {
                         message: 'No file uploaded'
                     });
                 } else {
-
                     let photo = req.file;
-                    console.log(photo)
                     res.send({
                         status: true,
                         message: 'File uploaded',
