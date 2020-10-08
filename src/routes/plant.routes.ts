@@ -2,10 +2,22 @@ import { PlantService } from "../services/plant.service";
 import { Plant } from "../models/plant";
 import { Response, Request, Router } from 'express';
 import { Logger } from "../services/logger";
+import multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
 
 const uuid = require('uuid');
+var fs = require("fs");
+
+// const UPLOAD_PATH = 'uploads';
+// const DB_NAME = 'db.json';
+// const COLLECTION_NAME = 'images';
 
 const LOGGER = Logger.getLogger();
+
+// const upload = multer({ dest: `${UPLOAD_PATH}/` }); // multer configuration
+// const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
+
 
 export class PlantRoutes {
     public static routes(): Router {
@@ -60,10 +72,39 @@ export class PlantRoutes {
             let newPlant = new Plant(id, plantName, plantDescription, plantResource, plantStatus);
             try {
                 await this.plantService.create(newPlant);
+                console.log(`Plant added Successfully`);
             } catch (e) {
+                console.log(e)
                 return res.status(500).json(e);
             }
             return res.status(200).json(newPlant);
+        });
+
+        this.router.post('/plants/upload', upload.single('plantResource'), async (req: Request, res: Response) => {
+            console.log(JSON.stringify(req.body));
+            console.log(req.file);
+            try {
+                if (!req.file) {
+                    res.send({
+                        status: false,
+                        message: 'No file uploaded'
+                    });
+                } else {
+
+                    let photo = req.file;
+                    console.log(photo)
+                    res.send({
+                        status: true,
+                        message: 'File uploaded',
+                        data: {
+                            name: photo.originalname,
+                            size: photo.size
+                        }
+                    });
+                }
+            } catch (e) {
+                console.log(`Error while uploading image`);
+            }
         });
 
         this.router.put('/plants/:id', async (req: Request, res: Response) => {
@@ -95,4 +136,6 @@ export class PlantRoutes {
         })
 
     }
-}    
+}
+
+

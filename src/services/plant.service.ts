@@ -66,6 +66,7 @@ export class PlantService {
             TableName: this.PLANTS_TABLE,
             Item: plant
         }
+        let image = plant.plantResource;
         try {
             await this.dynamoDb.put(params).promise();
         } catch (e) {
