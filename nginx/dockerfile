@@ -1,0 +1,8 @@
+FROM nginx:1.16.0-alpine
+
+ARG HOST
+
+COPY ./conf /etc/nginx/conf.d
+
+RUN mkdir -p /etc/letsencrypt/live/$HOST
+RUN ln -s /etc/letsencrypt/live/$HOST /etc/nginx/conf.d/certs

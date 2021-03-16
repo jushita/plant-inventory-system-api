@@ -11,9 +11,11 @@ let storage = multerS3({
     s3: s3,
     bucket: 'plants-jushita',
     metadata: function (req, file, cb) {
+        console.log(req);
         cb(null, { fieldName: file.fieldname });
     },
     key: function (req, file, cb) {
+        console.log(req);
         cb(null, file.originalname)
     }
 });
@@ -51,6 +53,7 @@ export class PlantRoutes {
             let listOfPlants: Plant[];
             try {
                 listOfPlants = await this.plantService.getAll();
+                console.log(`here and getting list of plants`)
             } catch (e) {
                 console.log(e);
                 return res.status(500).json(e);
@@ -71,12 +74,12 @@ export class PlantRoutes {
         });
 
         this.router.post('/plants', async (req: Request, res: Response) => {
-            const plantName = req.body.plantName;
-            const plantDescription = req.body.plantDescription;
-            const plantResource = req.body.plantResource;
-            const plantStatus = req.body.plantStatus;
+            const PlantName = req.body.PlantName;
+            const PlantDescription = req.body.PlantDescription;
+            const PlantResource = req.body.PlantResource;
+            const PlantStatus = req.body.PlantStatus;
             const id = uuid.v4();
-            let newPlant = new Plant(id, plantName, plantDescription, plantResource, plantStatus);
+            let newPlant = new Plant(id, PlantName, PlantDescription, PlantResource, PlantStatus);
             try {
                 await this.plantService.create(newPlant);
                 console.log(`Plant added Successfully`);
@@ -112,11 +115,11 @@ export class PlantRoutes {
 
         this.router.put('/plants/:id', async (req: Request, res: Response) => {
             let id = req.params.id;
-            const plantName = req.body.plantName;
-            const plantDescription = req.body.plantDescription;
-            const plantResource = req.body.plantResource;
-            const plantStatus = req.body.plantStatus;
-            let updatedPlant = new Plant(id, plantName, plantDescription, plantResource, plantStatus);
+            const PlantName = req.body.PlantName;
+            const PlantDescription = req.body.PlantDescription;
+            const PlantResource = req.body.PlantResource;
+            const PlantStatus = req.body.PlantStatus;
+            let updatedPlant = new Plant(id, PlantName, PlantDescription, PlantResource, PlantStatus);
             try {
                 await this.plantService.update(updatedPlant);
             } catch (e) {

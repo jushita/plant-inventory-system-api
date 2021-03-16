@@ -17,12 +17,7 @@ export class PlantService {
     public dynamoDb: DynamoDB.DocumentClient;
 
     private constructor() {
-        this.dynamoDb = this.IS_OFFLINE === true ?
-            new AWS.DynamoDB.DocumentClient({
-                region: 'us-east-2',
-                endpoint: 'http://host.docker.internal:8080',
-            }) :
-            new AWS.DynamoDB.DocumentClient();
+        this.dynamoDb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-2' });
     }
 
     public async getAll(): Promise<Plant[]> {
@@ -40,13 +35,13 @@ export class PlantService {
 
     }
 
-    public async getbyId(id: string): Promise<Plant> {
+    public async getbyId(PlantId: string): Promise<Plant> {
         let result: DynamoDB.DocumentClient.QueryOutput;
         const params: DynamoDB.DocumentClient.QueryInput = {
             TableName: this.PLANTS_TABLE,
-            KeyConditionExpression: "id = :id",
+            KeyConditionExpression: "PlantId = :PlantId",
             ExpressionAttributeValues: {
-                ":id": id
+                ":PlantId": PlantId
             }
         };
         try {
@@ -66,7 +61,7 @@ export class PlantService {
             TableName: this.PLANTS_TABLE,
             Item: plant
         }
-        let image = plant.plantResource;
+        let image = plant.PlantResource;
         try {
             await this.dynamoDb.put(params).promise();
         } catch (e) {
@@ -80,14 +75,14 @@ export class PlantService {
         const params = {
             TableName: this.PLANTS_TABLE,
             Key: {
-                "id": plant.id
+                "PlantId": plant.PlantId
             },
-            UpdateExpression: "set plantName = :n, plantDescription=:d, plantResource=:r, plantStatus=:s",
+            UpdateExpression: "set PlantName = :n, PlantDescription=:d, PlantResource=:r, PlantStatus=:s",
             ExpressionAttributeValues: {
-                ":n": plant.plantName,
-                ":d": plant.plantDescription,
-                ":r": plant.plantResource,
-                ":s": plant.plantStatus
+                ":n": plant.PlantName,
+                ":d": plant.PlantDescription,
+                ":r": plant.PlantResource,
+                ":s": plant.PlantStatus
             },
         };
 
@@ -101,11 +96,11 @@ export class PlantService {
 
     }
 
-    public async delete(id: string) {
+    public async delete(PlantId: string) {
         const params = {
             TableName: this.PLANTS_TABLE,
             Key: {
-                "id": id,
+                "PlantId": PlantId,
             },
         };
 

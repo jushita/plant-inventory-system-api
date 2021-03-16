@@ -1,15 +1,16 @@
 export class Plant {
-    public id: string;
-    public plantName: string;
-    public plantDescription: string;
-    public plantResource: string;
-    public plantStatus: string;
-    constructor(id: string, plantName: string, plantDescription: string, plantResource: string, plantStatus: string) {
-        this.id = id;
-        this.plantName = plantName;
-        this.plantDescription = plantDescription;
-        this.plantResource = plantResource;
-        this.plantStatus = plantStatus;
+    public PlantId: string;
+    public PlantName: string;
+    public PlantDescription: string;
+    public PlantResource: string;
+    public PlantStatus: string;
+
+    constructor(PlantId: string, PlantName: string, PlantDescription: string, PlantResource: string, PlantStatus: string) {
+        this.PlantId = PlantId;
+        this.PlantName = PlantName;
+        this.PlantDescription = PlantDescription;
+        this.PlantResource = PlantResource;
+        this.PlantStatus = PlantStatus;
 
     }
 }
