@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/jushita/plant-inventory-system#readme",
   "dependencies": {
-    "aws-sdk": "^2.599.0",
+    "aws-sdk": "^2.814.0",
     "aws-serverless-express": "^3.3.6",
     "cors": "^2.8.5",
     "del": "^6.0.0",
